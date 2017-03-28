@@ -1,0 +1,6 @@
+framework module Pods_PennyUITests {
+  umbrella header "Pods-PennyUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
