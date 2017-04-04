@@ -23,7 +23,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
         ref.child("users").child("1").setValue(["fname": "Sally Joe Bob", "lname":"Smith", "email":"sjb@bjs.com", "username":"sallyjoebob"])
-        ref.child("pennies").child("1").setValue(["pennyowner": "1"]);
+        ref.child("users").child("2").setValue(["fname": "Neil", "lname":"Bantoc", "email":"neilemail@notarealaddress.com", "username":"nbantoc"])
+        ref.child("pennies").child("1").setValue(["pennyowner": "1"])
+        ref.child("transactions").childByAutoId().setValue(["sender": "1", "receiver": "2", "penny": "1", "timestamp": [".sv": "timestamp"], "privacy":"public"])
+        ref.child("requests").child("1").child("2").setValue("true");
+        //ref.child("requests").child("1").child("3").setValue("true");
+        print("---TIMESTAMP---")
+        print(FIRServerValue.timestamp())
+        print("---")
+        //lol, populating a database
+        //ref.child("audience").setValue(["private": "true", "friends": "true", "public":"true"]);
         return true
     }
 
