@@ -11,14 +11,26 @@ import Firebase
 import FirebaseDatabase
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
         FIRApp.configure()
+        
+        //Google sign in
+        var configureError: NSError?
+        GGLContext.sharedInstance().configureWithError(&configureError)
+        if (configureError != nil) {
+            print("Google auth error: \(configureError)")
+        }
+        GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
+        GIDSignIn.sharedInstance().delegate = self
+        
+        /*FIRApp.configure()
         print("Hello")
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
@@ -32,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(FIRServerValue.timestamp())
         print("---")
         //lol, populating a database
-        //ref.child("audience").setValue(["private": "true", "friends": "true", "public":"true"]);
+        //ref.child("audience").setValue(["private": "true", "friends": "true", "public":"true"]);*/
         return true
     }
 
@@ -57,7 +69,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
+    
+    /*   GOOGLE AUTH METHODS   */
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if(error != nil) {
+            print("Sign in error ahoy! \(error)")
+            return
+        }
+        print("Hello, \(user)")
+        guard let authentication = user.authentication else { return }
+        let credential = FIRGoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                          accessToken: authentication.accessToken)
+        FIRAuth.auth()?.signIn(with: credential, completion: {(user, error) in
+            if let error = error {
+                print("something went wrong? \(error)")
+            }
+            return
+        })
+    }
+    
+    @available(iOS 9.0, *)
+    func application(_ application: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any])
+        -> Bool {
+            return GIDSignIn.sharedInstance().handle(url,
+                                                     sourceApplication:options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
+                                                     annotation: [:])
+    }
+    
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url,
+                                                 sourceApplication: sourceApplication,
+                                                 annotation: annotation)
+    }
+    
+    /*
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool{
+        return GIDSignIn.sharedInstance().handle(url as URL!, sourceApplication: sourceApplication, annotation: annotation)
+    }*/
+    
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        if(error != nil){
+            print("Sign out error ahoy! \(error)")
+        }
+        else {
+            print("Goodbye, \(user)")
+        }
+    }
 
 }
 

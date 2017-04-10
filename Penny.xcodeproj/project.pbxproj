@@ -47,6 +47,7 @@
 		6A67D4C02E9268F07194B76D /* Pods-Penny.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Penny.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Penny/Pods-Penny.debug.xcconfig"; sourceTree = "<group>"; };
 		7A71881EC262FDA827E8107A /* Pods-PennyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PennyUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PennyUITests/Pods-PennyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		DFFA0F40EE92D38EC5841DFF /* Pods_PennyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PennyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB62B62E1E9B363E004E229D /* Penny-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Penny-Bridging-Header.h"; sourceTree = "<group>"; };
 		FB8E95551E7DDC13005ACD8A /* Penny.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Penny.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB8E95581E7DDC13005ACD8A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FB8E955A1E7DDC14005ACD8A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -146,6 +147,7 @@
 				FB8E95611E7DDC14005ACD8A /* LaunchScreen.storyboard */,
 				FB8E95641E7DDC14005ACD8A /* Info.plist */,
 				FB9E14561E7DE20E0007664A /* GoogleService-Info.plist */,
+				FB62B62E1E9B363E004E229D /* Penny-Bridging-Header.h */,
 			);
 			path = Penny;
 			sourceTree = "<group>";
@@ -246,6 +248,7 @@
 					FB8E95541E7DDC13005ACD8A = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 9KZ239XAGZ;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					FB8E95681E7DDC14005ACD8A = {
@@ -607,11 +610,14 @@
 			baseConfigurationReference = 6A67D4C02E9268F07194B76D /* Pods-Penny.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 9KZ239XAGZ;
 				INFOPLIST_FILE = Penny/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = projectpenny.Penny;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Penny/Penny-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -621,11 +627,13 @@
 			baseConfigurationReference = 61FCAFF61E86E15756977EBA /* Pods-Penny.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 9KZ239XAGZ;
 				INFOPLIST_FILE = Penny/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = projectpenny.Penny;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Penny/Penny-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
